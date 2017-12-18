@@ -61,7 +61,7 @@ class RocketHandler(SensuHandler):
 
         att["text"] = self.event["check"]["output"]
         message_payload["attachments"].append(att)
-        
+
         payload = json.dumps(message_payload, indent=4)
         print payload
         sys.exit(0)
@@ -73,18 +73,6 @@ class RocketHandler(SensuHandler):
         response = urllib2.urlopen(req, payload)
         if response.getcode() is not 200:
         	print "Posting to Rocketchat failed!"
-
-
-    def post_message(self, title, text, color):
-        data['attachments'] = []
-        attachment = {}
-        attachment["title"] = title
-        attachment["title_link"] = DASHBOARD_URL
-        attachment["text"] = text
-        attachment["color"] = color
-        data['attachments'].append(attachment)
-
-
 
     def translate_status(self, status):
         return ["OK", "WARNING", "CRITICAL", "UNKNOWN"][status]
