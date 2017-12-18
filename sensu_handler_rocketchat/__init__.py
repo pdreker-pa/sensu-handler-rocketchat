@@ -32,13 +32,6 @@ class RocketHandler(SensuHandler):
         super(RocketHandler, self).__init__()
 
     def handle(self):
-        # pp = pprint.PrettyPrinter(indent=4)
-        # pp.pprint(self.settings)
-        # print vars(self.options)
-        # pp.pprint(self.remain)
-        # sys.exit(0)
-
-
         message_payload = {}
         message_payload["channel"] = self.settings[self.config_space]["channel"]
         message_payload["username"] = self.settings[self.config_space]["nickname"]
