@@ -59,7 +59,7 @@ class RocketHandler(SensuHandler):
             message_payload["attachment"]["fields"].append({"title": key, "value": str(value), "short": True})
 
         message_payload["attachment"]["text"] = self.event["check"]["output"]
-        payload = json.dumps(mesage_payload)
+        payload = json.dumps(message_payload)
         print payload
         sys.exit(0)
 
