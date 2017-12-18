@@ -55,10 +55,6 @@ class RocketHandler(SensuHandler):
         att["text"] = self.event["check"]["output"]
         message_payload["attachments"].append(att)
 
-        payload = json.dumps(message_payload, indent=4)
-        print payload
-        sys.exit(0)
-
         req = urllib2.Request(self.settings[config_space]["hook_url"])
         req.add_header('Content-Type', 'application/json')
         payload = json.dumps(mesage_payload)
