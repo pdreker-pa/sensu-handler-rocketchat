@@ -57,7 +57,7 @@ class RocketHandler(SensuHandler):
 
         req = urllib2.Request(self.settings[self.config_space]["hook_url"])
         req.add_header('Content-Type', 'application/json')
-        payload = json.dumps(mesage_payload)
+        payload = json.dumps(message_payload)
 
         response = urllib2.urlopen(req, payload)
         if response.getcode() is not 200:
