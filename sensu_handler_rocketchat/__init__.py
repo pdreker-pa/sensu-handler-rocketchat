@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from sensu_plugin import SensuHandler
-import pprint
 import urllib2, json, os
 
 ROCKETCHAT_URL = "https://team.proact.de/hooks/iPw6s7YNc72QKCk5e/Xm8MqwrQodKp6rgDbKo5swv4QGYsiiN5ukAGP2bsWCzxHTSK"
