@@ -30,6 +30,7 @@ class RocketHandler(SensuHandler):
     def handle(self):
         pp = pprint.PrettyPrinter(indent=4)
         pp.pprint(self.settings)
+        pp.pprint(self.options)
         sys.exit(0)
         title = "%s (%s): %s" % (self.translate_status(self.event["check"]["status"]),
                                  self.event["check"]["name"],
@@ -44,7 +45,7 @@ class RocketHandler(SensuHandler):
         self.post_message(title, text, self.status_to_color(self.event["check"]["status"]))
 
     def post_message(self, title, text, color):
-        url = ROCKETCHAT_URL
+        url = self.settings["rockethandler"]
 
         data = {}
         data['username'] = NICK
