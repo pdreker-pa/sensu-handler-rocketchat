@@ -31,8 +31,6 @@ class RocketHandler(SensuHandler):
 
         self.config_space = vars(self.options)["config"]
 
-
-
     def handle(self):
         # pp = pprint.PrettyPrinter(indent=4)
         # pp.pprint(self.settings)
