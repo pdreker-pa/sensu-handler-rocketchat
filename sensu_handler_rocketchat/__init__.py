@@ -13,15 +13,24 @@
 # limitations under the License.
 
 from sensu_plugin import SensuHandler
-import urllib2, json, os
-
-ROCKETCHAT_URL = "https://team.proact.de/hooks/iPw6s7YNc72QKCk5e/Xm8MqwrQodKp6rgDbKo5swv4QGYsiiN5ukAGP2bsWCzxHTSK"
-NICK = "Sensu"
-CHANNEL = "openstack-events"
-DASHBOARD_URL = "http://10.43.8.4:3000"
+import pprint
+import urllib2, json, os, sys
 
 class RocketHandler(SensuHandler):
+    def setup(self):
+        self.parser.add_argument(
+            '-c',
+            '--config',
+            required = False,
+            type = string,
+            default = "rockethandler",
+            help = 'config section to use'
+        )
+
     def handle(self):
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint(self.config)
+        sys.exit(0)
         title = "%s (%s): %s" % (self.translate_status(self.event["check"]["status"]),
                                  self.event["check"]["name"],
                                  self.event["client"]["name"])
