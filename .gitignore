@@ -1,1 +1,4 @@
 handler_config.json
+dist/*
+**/*.pyc
+MANIFEST

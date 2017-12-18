@@ -19,15 +19,17 @@ setup(
     version='0.0.1',
     author='Patrick Dreker',
     author_email='patrick.dreker@proact.de',
-    packages=['sensu_plugin_rocketchat_handler'],
+    packages=['sensu_handler_rocketchat'],
     scripts=[],
-    url='http://www.proact.de',
+    url='http://www.dreker.de',
     license='LICENSE.txt',
     description='A sensu plugin to send events to rocketchat.',
     long_description="""
     """,
     install_requires=[
         'argparse',
-        'requests'
-    ]
+        'requests',
+        'sensu_plugin'
+    ],
+    entry_points = { 'console_scripts': ['sensu_handler_rocketchat=sensu_handler_rocketchat.sensu_handler_rocketchat:main']}
 )
