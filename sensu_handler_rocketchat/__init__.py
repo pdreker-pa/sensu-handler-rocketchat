@@ -23,14 +23,6 @@ DASHBOARD_URL = "http://10.43.8.4:3000"
 
 class RocketHandler(SensuHandler):
     def handle(self):
-        #pp = pprint.PrettyPrinter(indent=4)
-        #pp.pprint(self.event)
-        #pp.pprint(self.settings)
-        #print "Client:         " + self.event["client"]["name"]
-        #print "Client Address: " + self.event["client"]["address"]
-        #print "Subscriptions:  " + ", ".join(self.event["client"]["subscriptions"])
-        #print "Severity:       " + self.translate_status(self.event["check"]["status"])
-        #print "Output:         " + self.event["check"]["output"]
         title = "%s (%s): %s" % (self.translate_status(self.event["check"]["status"]),
                                  self.event["check"]["name"],
                                  self.event["client"]["name"])
