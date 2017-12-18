@@ -29,7 +29,7 @@ class RocketHandler(SensuHandler):
 
     def handle(self):
         pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(self.config)
+        pp.pprint(self.settings)
         sys.exit(0)
         title = "%s (%s): %s" % (self.translate_status(self.event["check"]["status"]),
                                  self.event["check"]["name"],
