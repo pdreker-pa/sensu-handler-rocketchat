@@ -58,7 +58,7 @@ class RocketHandler(SensuHandler):
         for key,value in self.event["check"]["thresholds"].iteritems():
             message_payload["attachment"]["fields"].append({"title": key, "value": str(value), "short": True})
 
-        message_payload["attachment"]["text"] = "%s\n%s" % (self.event["check"]["output"], thresholds)
+        message_payload["attachment"]["text"] = self.event["check"]["output"]
         payload = json.dumps(mesage_payload)
         print payload
         sys.exit(0)
