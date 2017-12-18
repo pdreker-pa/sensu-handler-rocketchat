@@ -17,6 +17,7 @@ import pprint
 import urllib2, json, os, sys, argparse
 
 class RocketHandler(SensuHandler):
+    def __init__(self):
 
     def handle(self):
         self.parser = argparse.ArgumentParser()
@@ -28,31 +29,48 @@ class RocketHandler(SensuHandler):
             help = 'config section to use'
         )
         (self.options, self.remain) = self.parser.parse_known_args()
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(self.settings)
-        print vars(self.options)
-        pp.pprint(self.remain)
-        sys.exit(0)
-        title = "%s (%s): %s" % (self.translate_status(self.event["check"]["status"]),
-                                 self.event["check"]["name"],
-                                 self.event["client"]["name"])
+        # pp = pprint.PrettyPrinter(indent=4)
+        # pp.pprint(self.settings)
+        # print vars(self.options)
+        # pp.pprint(self.remain)
+        # sys.exit(0)
 
-        thresholds = ""
+        config_space = vars(self.options)["config"]
+
+        message_payload = {}
+        message_payload["channel"] = self.settings[config_space]["channel"]
+        message_payload["username"] = self.settings[config_space]["nickname"]
+
+        message_payload["attachment"] = {}
+        message_payload["attachment"]["title"] = "%s (%s): %s" % (self.translate_status(self.event["check"]["status"]),
+                                                                  self.event["check"]["name"],
+                                                                  self.event["client"]["name"])
+        message_payload["attachment"]["title_link"] = self.settings[config_space]["dashboard_url"]
+
+        message_payload["attachment"]["pretext"] = self.settings[config_space]["pretext"]
+        message_payload["attachment"]["color"] = self.status_to_color(self.event["check"]["status"])
+
+        message_payload["attachment"]["ts"] = self.event["timestamp"]
+        message_payload["attachment"]["fields"] = []
+
         for key,value in self.event["check"]["thresholds"].iteritems():
-            thresholds = thresholds + "*" + key + "*: " + str(value) + " - "
+            message_payload["attachment"]["fields"].append({"title": key, "value": str(value), "short": True})
 
-        text = "%s\n%s" % (self.event["check"]["output"], thresholds)
+        message_payload["attachment"]["text"] = "%s\n%s" % (self.event["check"]["output"], thresholds)
+        payload = json.dumps(mesage_payload)
+        print payload
+        sys.exit(0)
 
-        self.post_message(title, text, self.status_to_color(self.event["check"]["status"]))
+        req = urllib2.Request(self.settings[config_space]["hook_url"])
+        req.add_header('Content-Type', 'application/json')
+        payload = json.dumps(mesage_payload)
+
+        response = urllib2.urlopen(req, payload)
+        if response.getcode() is not 200:
+        	print "Posting to Rocketchat failed!"
+
 
     def post_message(self, title, text, color):
-        url = self.settings["rockethandler"]
-
-        data = {}
-        data['username'] = NICK
-        #data['icon_url'] = icon_url
-        data['text'] = ""
-        data['channel'] = CHANNEL
         data['attachments'] = []
         attachment = {}
         attachment["title"] = title
@@ -61,14 +79,6 @@ class RocketHandler(SensuHandler):
         attachment["color"] = color
         data['attachments'].append(attachment)
 
-
-        req = urllib2.Request(ROCKETCHAT_URL)
-        req.add_header('Content-Type', 'application/json')
-        payload = json.dumps(data)
-
-        response = urllib2.urlopen(req, payload)
-        if response.getcode() is not 200:
-        	print "Posting to Mattermost failed!"
 
 
     def translate_status(self, status):
