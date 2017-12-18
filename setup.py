@@ -19,7 +19,7 @@ setup(
     version='0.0.1',
     author='Patrick Dreker',
     author_email='patrick.dreker@proact.de',
-    packages=['sensu_plugin_rocketchat_handler', 'sensu_plugin_rocketchat_handler.test'],
+    packages=['sensu_plugin_rocketchat_handler'],
     scripts=[],
     url='http://www.proact.de',
     license='LICENSE.txt',
@@ -29,9 +29,5 @@ setup(
     install_requires=[
         'argparse',
         'requests'
-    ],
-    tests_require=[
-        'pep8',
-        'pylint'
-    ],
+    ]
 )
