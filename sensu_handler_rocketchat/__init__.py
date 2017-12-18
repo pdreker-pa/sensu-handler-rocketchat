@@ -14,10 +14,12 @@
 
 from sensu_plugin import SensuHandler
 import pprint
-import urllib2, json, os, sys
+import urllib2, json, os, sys, argparse
 
 class RocketHandler(SensuHandler):
-    def setup(self):
+
+    def handle(self):
+        self.parser = argparse.ArgumentParser()
         self.parser.add_argument(
             '-c',
             '--config',
@@ -26,11 +28,11 @@ class RocketHandler(SensuHandler):
             default = "rockethandler",
             help = 'config section to use'
         )
-
-    def handle(self):
+        (self.options, self.remain) = self.parser.parse_known_args()
         pp = pprint.PrettyPrinter(indent=4)
         pp.pprint(self.settings)
         pp.pprint(self.options)
+        pp.pprint(self.remain)
         sys.exit(0)
         title = "%s (%s): %s" % (self.translate_status(self.event["check"]["status"]),
                                  self.event["check"]["name"],
