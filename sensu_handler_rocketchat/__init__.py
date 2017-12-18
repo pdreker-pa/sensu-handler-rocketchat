@@ -18,6 +18,7 @@ import urllib2, json, os, sys, argparse
 
 class RocketHandler(SensuHandler):
     def __init__(self):
+        super(RocketHandler, self).__init__()
         self.parser = argparse.ArgumentParser()
         self.parser.add_argument(
             '-c',
