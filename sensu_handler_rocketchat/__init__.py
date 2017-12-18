@@ -18,7 +18,6 @@ import urllib2, json, os, sys, argparse
 
 class RocketHandler(SensuHandler):
     def __init__(self):
-        super(RocketHandler, self).__init__()
         self.parser = argparse.ArgumentParser()
         self.parser.add_argument(
             '-c',
@@ -30,6 +29,7 @@ class RocketHandler(SensuHandler):
         (self.options, self.remain) = self.parser.parse_known_args()
 
         self.config_space = vars(self.options)["config"]
+        super(RocketHandler, self).__init__()
 
     def handle(self):
         # pp = pprint.PrettyPrinter(indent=4)
