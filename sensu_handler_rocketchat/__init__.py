@@ -30,7 +30,7 @@ class RocketHandler(SensuHandler):
         (self.options, self.remain) = self.parser.parse_known_args()
         pp = pprint.PrettyPrinter(indent=4)
         pp.pprint(self.settings)
-        vars(self.options)
+        print vars(self.options)
         pp.pprint(self.remain)
         sys.exit(0)
         title = "%s (%s): %s" % (self.translate_status(self.event["check"]["status"]),
