@@ -24,7 +24,6 @@ class RocketHandler(SensuHandler):
             '-c',
             '--config',
             required = False,
-            type = string,
             default = "rockethandler",
             help = 'config section to use'
         )
