@@ -18,8 +18,6 @@ import urllib2, json, os, sys, argparse
 
 class RocketHandler(SensuHandler):
     def __init__(self):
-
-    def handle(self):
         self.parser = argparse.ArgumentParser()
         self.parser.add_argument(
             '-c',
@@ -29,25 +27,30 @@ class RocketHandler(SensuHandler):
             help = 'config section to use'
         )
         (self.options, self.remain) = self.parser.parse_known_args()
+
+        self.config_space = vars(self.options)["config"]
+
+
+
+    def handle(self):
         # pp = pprint.PrettyPrinter(indent=4)
         # pp.pprint(self.settings)
         # print vars(self.options)
         # pp.pprint(self.remain)
         # sys.exit(0)
 
-        config_space = vars(self.options)["config"]
 
         message_payload = {}
-        message_payload["channel"] = self.settings[config_space]["channel"]
-        message_payload["username"] = self.settings[config_space]["nickname"]
+        message_payload["channel"] = self.settings[self.config_space]["channel"]
+        message_payload["username"] = self.settings[self.config_space]["nickname"]
 
         message_payload["attachment"] = {}
         message_payload["attachment"]["title"] = "%s (%s): %s" % (self.translate_status(self.event["check"]["status"]),
                                                                   self.event["check"]["name"],
                                                                   self.event["client"]["name"])
-        message_payload["attachment"]["title_link"] = self.settings[config_space]["dashboard_url"]
+        message_payload["attachment"]["title_link"] = self.settings[self.config_space]["dashboard_url"]
 
-        message_payload["attachment"]["pretext"] = self.settings[config_space]["pretext"]
+        message_payload["attachment"]["pretext"] = self.settings[self.config_space]["pretext"]
         message_payload["attachment"]["color"] = self.status_to_color(self.event["check"]["status"])
 
         message_payload["attachment"]["ts"] = self.event["timestamp"]
