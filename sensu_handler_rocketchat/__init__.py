@@ -43,22 +43,22 @@ class RocketHandler(SensuHandler):
         message_payload["channel"] = self.settings[self.config_space]["channel"]
         message_payload["username"] = self.settings[self.config_space]["nickname"]
 
-        message_payload["attachment"] = {}
-        message_payload["attachment"]["title"] = "%s (%s): %s" % (self.translate_status(self.event["check"]["status"]),
+        message_payload["attachments"] = {}
+        message_payload["attachments"]["title"] = "%s (%s): %s" % (self.translate_status(self.event["check"]["status"]),
                                                                   self.event["check"]["name"],
                                                                   self.event["client"]["name"])
-        message_payload["attachment"]["title_link"] = self.settings[self.config_space]["dashboard_url"]
+        message_payload["attachments"]["title_link"] = self.settings[self.config_space]["dashboard_url"]
 
-        message_payload["attachment"]["pretext"] = self.settings[self.config_space]["pretext"]
-        message_payload["attachment"]["color"] = self.status_to_color(self.event["check"]["status"])
+        message_payload["attachments"]["pretext"] = self.settings[self.config_space]["pretext"]
+        message_payload["attachments"]["color"] = self.status_to_color(self.event["check"]["status"])
 
-        message_payload["attachment"]["ts"] = self.event["timestamp"]
-        message_payload["attachment"]["fields"] = []
+        message_payload["attachments"]["ts"] = self.event["timestamp"]
+        message_payload["attachments"]["fields"] = []
 
         for key,value in self.event["check"]["thresholds"].iteritems():
-            message_payload["attachment"]["fields"].append({"title": key, "value": str(value), "short": True})
+            message_payload["attachments"]["fields"].append({"title": key, "value": str(value), "short": True})
 
-        message_payload["attachment"]["text"] = self.event["check"]["output"]
+        message_payload["attachments"]["text"] = self.event["check"]["output"]
         payload = json.dumps(message_payload)
         print payload
         sys.exit(0)
