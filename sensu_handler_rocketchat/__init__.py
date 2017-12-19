@@ -55,10 +55,9 @@ class RocketHandler(SensuHandler):
         att["ts"] = self.event["timestamp"]
         att_fields = []
 
-        for key,value in self.event["check"]["thresholds"].iteritems():
-            att_fields.append({"title": key, "value": str(value), "short": True})
-
-        if att_fields:
+        if "thresholds" in self.event["check"]:
+            for key,value in self.event["check"]["thresholds"].iteritems():
+                att_fields.append({"title": key, "value": str(value), "short": True})
             att["fields"] = att_fields
 
         att["text"] = self.event["check"]["output"]
