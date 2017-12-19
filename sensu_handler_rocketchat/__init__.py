@@ -36,7 +36,7 @@ class RocketHandler(SensuHandler):
         if "channel" in self.settings[self.config_space]:
             message_payload["channel"] = self.settings[self.config_space]["channel"]
 
-        if "nickname" in self.settings[self.config_space]
+        if "nickname" in self.settings[self.config_space]:
             message_payload["username"] = self.settings[self.config_space]["nickname"]
 
         message_payload["attachments"] = []
