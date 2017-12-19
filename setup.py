@@ -15,8 +15,8 @@
 from distutils.core import setup
 
 setup(
-    name='sensu-plugin-rocketchat-handler',
-    version='0.0.1',
+    name='sensu-handler-rocketchat',
+    version='0.0.3',
     author='Patrick Dreker',
     author_email='patrick.dreker@proact.de',
     packages=['sensu_handler_rocketchat'],
@@ -31,5 +31,5 @@ setup(
         'requests',
         'sensu_plugin'
     ],
-    entry_points = { 'console_scripts': ['sensu_handler_rocketchat=sensu_handler_rocketchat.sensu_handler_rocketchat:main']}
+    entry_points = { 'console_scripts': ['sensu_handler_rocketchat=sensu_handler_rocketchat.__main__:main']}
 )

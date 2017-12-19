@@ -2,3 +2,5 @@ handler_config.json
 dist/*
 **/*.pyc
 MANIFEST
+sensu_plugin_rocketchat_handler.egg-info
+sensu_handler_rocketchat.egg-info
