@@ -50,7 +50,7 @@ handling multiple channels or Rocketchat servers.
 * **pretext**: (optional) Text to prepend to each notification. Can be used e.g. for highlights.
 
 ## Changing config namespace
-By default the handler will use the top-level namespace "rockethandler" in the sensu config. If you need to notify multiple channels depending on different events you can define mjultiple config under different namespaces.
+By default the handler will use the top-level namespace "rockethandler" in the sensu config. If you need to notify multiple channels depending on different events you can define multiple config under different namespaces.
 
 These configs can then be referenced by using the `-c namespace` commandline argument
 
