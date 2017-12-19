@@ -37,7 +37,7 @@ handling multiple channels or Rocketchat servers.
     "hook_url": "https://rocketchat.example.com/hooks/iPw6s7Ykseuhf88kkhf8s4fn0392cnfh83mcfnbsWCzxHTSK",
     "nickname": "sensu",
     "channel": "openstack-events",
-    "dashboard_url": "http://10.43.8.4:3000",
+    "dashboard_url": "http://10.0.1.4:3000",
     "pretext": ""
   }
 }
@@ -49,3 +49,58 @@ handling multiple channels or Rocketchat servers.
 * **channel**: (optional) Channel name to deliver notification to. Defaults to "RocketChat defined".
 * **dashboard_url**: (optional) URL to uchiwa or sensu dashboard (root URL). This is used to create a link in the title of every notification
 * **pretext**: (optional) Text to prepend to each notification. Can be used e.g. for highlights.
+
+## Changing config namespace
+By default the handler will use the top-level namespace "rockethandler" in the sensu config. If you need to notify multiple channels depending on different events you can define mjultiple config under different namespaces.
+
+These configs can then be referenced by using the `-c namespace` commandline argument
+
+### Example:
+#### rockethandler config
+```json
+{
+  "rockethandler": {
+    "hook_url": "https://rocketchat.example.com/hooks/iPw6s7Ykseuhf88kkhf8s4fn0392cnfh83mcfnbsWCzxHTSK",
+    "nickname": "sensu",
+    "channel": "all-events",
+    "dashboard_url": "http://10.0.1.4:3000",
+    "pretext": ""
+  },
+  "rockethandler_1": {
+    "hook_url": "https://rocketchat.example.com/hooks/iPw6s7Ykseuhf88kkhf8s4fn0392cnfh83mcfnbsWCzxHTSK",
+    "nickname": "sensu-emerg",
+    "channel": "emergency-events",
+    "dashboard_url": "http://10.0.1.4:3000",
+    "pretext": "@all"
+  },
+  "rockethandler_2": {
+    "hook_url": "https://rocketchat.example.com/hooks/iPw6s7Ykseuhf88kkhf8s4fn0392cnfh83mcfnbsWCzxHTSK",
+    "nickname": "sensu-resolve",
+    "channel": "all-events",
+    "dashboard_url": "http://10.0.1.4:3000",
+    "pretext": "**PROBLEM RESOLVED**"
+  }
+}
+```
+
+```json
+{
+  "handlers": {
+    "rocket_handler": {
+      "type": "pipe",
+      "filters": [ "state_change_only" ],
+      "command": "sensu-handler-rocketchat"
+    },
+    "rocket_handler": {
+      "type": "pipe",
+      "filters": [ "state_change_only", "emergency" ],
+      "command": "sensu-handler-rocketchat -c rockethandler_1"
+    },
+    "rocket_handler": {
+      "type": "pipe",
+      "filters": [ "state_change_only", "resolution" ],
+      "command": "sensu-handler-rocketchat -c rockethandler_2"
+    }
+  }
+}
+```
