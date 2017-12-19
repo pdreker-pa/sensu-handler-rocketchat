@@ -29,7 +29,7 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Topic :: Communications :: Chat',
         'Topic :: System :: Monitoring'
-    ]
+    ],
     author='Patrick Dreker',
     author_email='patrick@dreker.de',
     packages=['sensu_handler_rocketchat'],
