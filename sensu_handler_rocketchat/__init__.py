@@ -33,26 +33,36 @@ class RocketHandler(SensuHandler):
 
     def handle(self):
         message_payload = {}
-        message_payload["channel"] = self.settings[self.config_space]["channel"]
-        message_payload["username"] = self.settings[self.config_space]["nickname"]
+        if "channel" in self.settings[self.config_space]:
+            message_payload["channel"] = self.settings[self.config_space]["channel"]
+
+        if "nickname" in self.settings[self.config_space]
+            message_payload["username"] = self.settings[self.config_space]["nickname"]
 
         message_payload["attachments"] = []
         att = {}
         att["title"] = "%s (%s): %s" % (self.translate_status(self.event["check"]["status"]),
                                         self.event["check"]["name"],
                                         self.event["client"]["name"])
-        att["title_link"] = self.settings[self.config_space]["dashboard_url"]
+        if "dashboard_url" in self.settings[self.config_space]:
+            att["title_link"] = self.settings[self.config_space]["dashboard_url"]
 
-        att["pretext"] = self.settings[self.config_space]["pretext"]
+        if "pretext" in self.settings[self.config_space]:
+            att["pretext"] = self.settings[self.config_space]["pretext"]
+
         att["color"] = self.status_to_color(self.event["check"]["status"])
 
         att["ts"] = self.event["timestamp"]
-        att["fields"] = []
+        att_fields = []
 
         for key,value in self.event["check"]["thresholds"].iteritems():
-            att["fields"].append({"title": key, "value": str(value), "short": True})
+            att_fields.append({"title": key, "value": str(value), "short": True})
+
+        if att_fields:
+            att["fields"] = att_fields
 
         att["text"] = self.event["check"]["output"]
+
         message_payload["attachments"].append(att)
 
         req = urllib2.Request(self.settings[self.config_space]["hook_url"])
