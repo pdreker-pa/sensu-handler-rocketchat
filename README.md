@@ -82,6 +82,7 @@ These configs can then be referenced by using the `-c namespace` commandline arg
 }
 ```
 
+#### sensu handler config
 ```json
 {
   "handlers": {
