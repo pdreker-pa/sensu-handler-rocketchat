@@ -21,7 +21,7 @@ if os.path.exists('README.txt'):
 
 setup(
     name='sensu-handler-rocketchat',
-    version='0.0.4',
+    version='0.0.5',
     classifiers=[
         'Development Status :: 4 - Beta',
         'License :: OSI Approved :: Apache Software License',
