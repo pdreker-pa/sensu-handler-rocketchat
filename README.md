@@ -4,7 +4,6 @@ This is a notification handler for Sensu written in Python. It should also work
 with Slack and any other Chat service which uses Slack compatible WebHooks.
 
 ## Why this and not sensu-plugins-slack?
--------------------------------------
 Because it was easier to rewrite this in Python than to figure out how to quote
 and escape JSON in ERB in a JSON config file ;-). The orignal sensu plugin
 identifies monitored hosts by their IP address, which is not helpful, when using
