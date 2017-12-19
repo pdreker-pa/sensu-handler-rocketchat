@@ -22,6 +22,14 @@ if os.path.exists('README.txt'):
 setup(
     name='sensu-handler-rocketchat',
     version='0.0.3',
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        'License :: OSI Approved :: Apache Software License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 2.7',
+        'Topic :: Communications :: Chat',
+        'Topic :: System :: Monitoring'
+    ]
     author='Patrick Dreker',
     author_email='patrick@dreker.de',
     packages=['sensu_handler_rocketchat'],
@@ -35,5 +43,5 @@ setup(
         'requests',
         'sensu_plugin'
     ],
-    entry_points = { 'console_scripts': ['sensu_handler_rocketchat=sensu_handler_rocketchat.__main__:main']}
+    entry_points = { 'console_scripts': ['sensu_handler_rocketchat=sensu_handler_rocketchat.__main__:main']},
 )
