@@ -12,20 +12,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
 from distutils.core import setup
+
+long_description = 'Notification handler to deliver events to rocketchat from sensu written in python'
+if os.path.exists('README.txt'):
+    long_description = open('README.txt').read()
 
 setup(
     name='sensu-handler-rocketchat',
     version='0.0.3',
     author='Patrick Dreker',
-    author_email='patrick.dreker@proact.de',
+    author_email='patrick@dreker.de',
     packages=['sensu_handler_rocketchat'],
     scripts=[],
-    url='http://www.dreker.de',
-    license='LICENSE.txt',
+    url='https://github.com/pdreker/sensu-handler-rocketchat',
+    license='LICENSE',
     description='A sensu plugin to send events to rocketchat.',
-    long_description="""
-    """,
+    long_description=long_description,
     install_requires=[
         'argparse',
         'requests',
