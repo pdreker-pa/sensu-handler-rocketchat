@@ -13,7 +13,8 @@ cloud setups, where IPs may repeat.
 # Usage
 
 Create a handler config for sensu:
-```{
+```json
+{
   "handlers": {
     "rockethandler": {
       "type": "pipe",
@@ -21,7 +22,8 @@ Create a handler config for sensu:
       "command": "sensu-handler-rocketchat"
     }
   }
-}```
+}
+```
 
 Refer to the [sensu documentation](https://sensuapp.org/docs/1.2/reference/handlers.html) for more info on how to write this.
 
@@ -29,7 +31,8 @@ Then create the config for this specific handler. The default config section is
 "rockethandler", but this can be overridden on the commandline, to enable
 handling multiple channels or Rocketchat servers.
 
-```{
+```json
+{
   "rockethandler": {
     "hook_url": "https://rocketchat.example.com/hooks/iPw6s7Ykseuhf88kkhf8s4fn0392cnfh83mcfnbsWCzxHTSK",
     "nickname": "sensu",
